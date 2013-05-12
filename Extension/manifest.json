@@ -31,5 +31,6 @@
         "images/ui-bg_glass_75_e6e6e6_1x400.png",
         "images/ui-bg_glass_75_dadada_1x400.png",
         "images/ui-bg_glass_65_ffffff_1x400.png"
-    ]
+    ],
+    "devtools_page": "devtools.html"
 }

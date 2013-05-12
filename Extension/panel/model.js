@@ -12,23 +12,26 @@ var DevPanelProxyModel = Backbone.Model.extend({
 
     initialize: function() {
         this.port = chrome.extension.connect({name: 'devpanel'});
-        this.port.onMessage.addListener(function(message) {
-            alert(message.text);
-        });
         this.bind('change', this.onChange, this);
 
         this._sendCommand('initialize');
     },
 
     onChange: function() {
-        this._sendCommand('test');
+        var changedAttributes = this.changedAttributes();
+        if (changedAttributes !== false) {
+            this._sendCommand('update', { changedValues: changedAttributes });
+        }
     },
 
-    _sendCommand: function(command) {
+    _sendCommand: function(command, options) {
+        options = options || {};
         var tabId = chrome.devtools.inspectedWindow.tabId;
-        this.port.postMessage({
-            command: command,
-            tabId: tabId
-        });
+        this.port.postMessage(
+            _.extend(options, {
+                command: command,
+                tabId: tabId
+            })
+        );
     }
 });

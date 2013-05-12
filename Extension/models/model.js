@@ -351,13 +351,13 @@ var PerfectPixelModel = Backbone.Model.extend({
     localStorage: new Backbone.LocalStorage('perfectpixel'),
 
     initialize: function() {
+        _.bindAll(this);
+
         this.overlays = new OverlayCollection();
         this.overlays.bind('remove', this.overlayRemoved, this);
 
         var port = chrome.extension.connect({name: 'content-script'});
-        port.onMessage.addListener(function(message) {
-            alert(JSON.stringify(message));
-        });
+        port.onMessage.addListener(this._remoteUpdate);
 
         /*this.getCurrentExtensionVersionAsync($.proxy(function(version) {
             this.save({ 'version': version });
@@ -415,6 +415,13 @@ var PerfectPixelModel = Backbone.Model.extend({
             } else {
                 this.save({currentOverlayId: null});
             }
+        }
+    },
+
+    _remoteUpdate: function(message) {
+        var overlay = this.getCurrentOverlay();
+        if (overlay) {
+            overlay.save(message.changedValues);
         }
     }
  });

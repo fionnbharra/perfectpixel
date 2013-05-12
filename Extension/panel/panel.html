@@ -1,9 +1,19 @@
 <html>
     <head>
         <script type="text/javascript" src="/3rd-party/jquery-1.9.1.min.js"></script>
-        <script type="text/javascript" src="panel.js"></script>
+        <script type="text/javascript" src="/3rd-party/underscore-min.js"></script>
+        <script type="text/javascript" src="/3rd-party/backbone-min.js"></script>
+        <script type="text/javascript" src="model.js"></script>
+        <script type="text/javascript" src="view.js"></script>
     </head>
     <body>
         <h1>PerfectPixel</h1>
+
+        <div id="origin-controls">
+            <button id="chromeperfectpixel-ymore" data-axis="y" data-offset="-1">&darr;</button>
+            <button id="chromeperfectpixel-yless" data-axis="y" data-offset="1">&uarr;</button>
+            <button id="chromeperfectpixel-xless" data-axis="x" data-offset="1">&larr;</button>
+            <button id="chromeperfectpixel-xmore" data-axis="x" data-offset="-1">&rarr;</button>
+        <div>
     </body>
 </html>

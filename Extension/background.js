@@ -304,3 +304,19 @@ function sendPPFileResponse(ppFile, sendResponse) {
             status: "FAIL"
         });
 }
+
+//Handle request from devtools
+chrome.extension.onConnect.addListener(function(port) {
+    if (port.name == 'devpanel') {
+        port.onMessage.addListener(function(message) {
+            switch (message.command) {
+                case 'initialize':
+                    injectIntoTab(message.tabId);
+                    break;
+                case 'test':
+                    port.postMessage({text: 'Recieved message from tab ' + message.tabId});
+                    break;
+            }
+        });
+    }
+});

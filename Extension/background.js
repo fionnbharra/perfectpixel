@@ -305,18 +305,23 @@ function sendPPFileResponse(ppFile, sendResponse) {
         });
 }
 
+var contentPorts = [];
+
 //Handle request from devtools
 chrome.extension.onConnect.addListener(function(port) {
-    if (port.name == 'devpanel') {
+    if (port.name === 'devpanel') {
         port.onMessage.addListener(function(message) {
-            switch (message.command) {
-                case 'initialize':
-                    injectIntoTab(message.tabId);
-                    break;
-                case 'test':
-                    port.postMessage({text: 'Recieved message from tab ' + message.tabId});
-                    break;
+            if (message.command === 'initialize') {
+                injectIntoTab(message.tabId);
+            } else {
+                var contentPort = contentPorts[message.tabId];
+                contentPort && contentPort.postMessage(message);
             }
         });
+    } else if (port.name === 'content-script') {
+        if (!contentPorts[port.sender.tab.id]) {
+            contentPorts[port.sender.tab.id] = port;
+            port.onDisconnect.addListener(function() { delete contentPorts[port.sender.tab.id]; });
+        }
     }
 });

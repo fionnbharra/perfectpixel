@@ -354,6 +354,11 @@ var PerfectPixelModel = Backbone.Model.extend({
         this.overlays = new OverlayCollection();
         this.overlays.bind('remove', this.overlayRemoved, this);
 
+        var port = chrome.extension.connect({name: 'content-script'});
+        port.onMessage.addListener(function(message) {
+            alert(JSON.stringify(message));
+        });
+
         /*this.getCurrentExtensionVersionAsync($.proxy(function(version) {
             this.save({ 'version': version });
         }, this));*/

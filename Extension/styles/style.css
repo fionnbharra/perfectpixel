@@ -1,18 +1,18 @@
 /*
  * Copyright 2011-2013 Alex Belozerov, Ilya Stepanov
- * 
+ *
  * This file is part of PerfectPixel.
- * 
+ *
  * PerfectPixel is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * PerfectPixel is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with PerfectPixel.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -232,7 +232,7 @@
     }
 
 #chromeperfectpixel-panel button {
-    padding: 5px;    
+    padding: 5px;
 }
 
 #chromeperfectpixel-panel button span {
@@ -243,7 +243,7 @@
     /*border: 1px solid blue;*/
     padding: 5px 0 5px 0;
 }
-            
+
 #chromeperfectpixel-panel .chromeperfectpixel-layer {
     display: block;
     border: 1px dashed black;
@@ -254,7 +254,7 @@
 #chromeperfectpixel-panel .chromeperfectpixel-layer > * {
     vertical-align: middle;
 }
-          
+
 #chromeperfectpixel-panel .chromeperfectpixel-layer input[type=checkbox],
 #chromeperfectpixel-panel .chromeperfectpixel-layer input[type=radio]
 {
@@ -267,7 +267,7 @@
     overflow: hidden;
     text-align:center !important;
 }
-            
+
 #chromeperfectpixel-panel .chromeperfectpixel-layer .chromeperfectpixel-delete {
     margin: 0 0 0 15px;
 }
@@ -342,3 +342,8 @@
     margin-left: 2px;
     padding-top: 4px;
 }
+
+.invert {
+    -webkit-filter: invert(100%);
+}
+

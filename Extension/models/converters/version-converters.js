@@ -24,9 +24,10 @@ var VersionConverter_FromLegacy = _.extend(VersionConverter, {
         if (localStorage["options"]) {
             var overlayShown = $.parseJSON(localStorage["options"]).visible || false;
             var overlayLocked = $.parseJSON(localStorage["options"]).locked || false;
+            var overlayInverted = $.parseJSON(localStorage["options"]).locked || false;
         }
         else
-            var overlayShown = overlayLocked = false;
+            var overlayShown = overlayLocked = overlayInverted = false;
         var layersData = [];
 
         { // scope
@@ -48,6 +49,7 @@ var VersionConverter_FromLegacy = _.extend(VersionConverter, {
             id: 1,
             overlayShown: overlayShown,
             overlayLocked: overlayLocked,
+            overlayInverted: overlayInverted,
             version: targetDataVersion
         });
 

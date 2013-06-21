@@ -1,18 +1,18 @@
 /*
  * Copyright 2011-2013 Alex Belozerov, Ilya Stepanov
- * 
+ *
  * This file is part of PerfectPixel.
  *
  * PerfectPixel is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * PerfectPixel is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with PerfectPixel.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -31,6 +31,7 @@ var PanelView = Backbone.View.extend({
         'click .chromeperfectpixel-min-showHideBtn': 'toggleOverlayShown',
         'click .chromeperfectpixel-lockBtn': 'toggleOverlayLocked',
         'click .chromeperfectpixel-min-lockBtn': 'toggleOverlayLocked',
+        'click .chromeperfectpixel-invert': 'toggleOverlayInvert',
         'click #chromeperfectpixel-origin-controls button': 'originButtonClick',
         'change .chromeperfectpixel-coords': 'changeOrigin',
         'change #chromeperfectpixel-opacity': 'changeOpacity',
@@ -205,6 +206,14 @@ var PanelView = Backbone.View.extend({
         }
     },
 
+    toggleOverlayInvert: function(ev) {
+
+        if ($(ev.currentTarget).is('[disabled]')) return false;
+        trackEvent('overlay', PerfectPixel.get('overlayInverted') ? 'invert' : 'revert');
+        PerfectPixel.toggleOverlayInvert();
+
+    },
+
     keyDown: function(e) {
         var overlay = PerfectPixel.getCurrentOverlay();
         if (overlay) {
@@ -253,6 +262,22 @@ var PanelView = Backbone.View.extend({
             this.$('.chromeperfectpixel-showHideBtn span').text('Show');
             this.$('.chromeperfectpixel-min-showHideBtn').text('i');
         }
+
+        if (overlay && PerfectPixel.get('overlayInverted')) {
+            if (this.overlayView) {
+                this.overlayView.$el.addClass('invert');
+            }
+            this.$('.chromeperfectpixel-invert span').text('Revert');
+
+        } else {
+            if (this.overlayView) {
+                this.overlayView.$el.removeClass('invert');
+            }
+            this.$('.chromeperfectpixel-invert span').text('Invert');
+
+        }
+
+
 
         if (this.overlayView) {
             this.overlayView.setLocked(PerfectPixel.get('overlayLocked'));
@@ -332,6 +357,7 @@ var PanelView = Backbone.View.extend({
             '<div id="chromeperfectpixel-progressbar-area" style="display: none">Loading...</div>' +
 
             '<div id="chromeperfectpixel-buttons">' +
+            '<button class="chromeperfectpixel-invert">Invert Image</button>' +
             '<button class="chromeperfectpixel-showHideBtn" title="Hotkey: Alt + S" style="margin-right: 5px; float:left;">Show</button>' +
             '<button class="chromeperfectpixel-lockBtn" title="Hotkey: Alt + C" style="margin-right: 5px; float:left;">Lock</button>' +
             '<div id="chromeperfectpixel-upload-area">' +
